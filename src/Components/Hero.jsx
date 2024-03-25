@@ -4,9 +4,8 @@ function Hero() {
   // Replace javascript:void(0) path with your path
   const navigation = [
     { title: "Home", path: "javascript:void(0)" },
-    { title: "About", path: "javascript:void(0)" },
+    { title: "Process", path: "javascript:void(0)" },
     { title: "Team", path: "javascript:void(0)" },
-    { title: "Detect CyberBullying", path: "javascript:void(0)" },
   ];
 
   return (
@@ -14,12 +13,7 @@ function Hero() {
       <header>
         <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
           <a href="javascript:void(0)">
-            <img
-              src={Logo}
-              width={100}
-              height={50}
-              alt="Float UI logo"
-            />
+            <img src={Logo} width={100} height={50} alt="Float UI logo" />
           </a>
           <ul className="py-4 flex-1 items-center flex space-x-3 sm:space-x-6 sm:justify-end">
             {navigation.map((item, idx) => (
@@ -27,6 +21,14 @@ function Hero() {
                 <a href={item.path}>{item.title}</a>
               </li>
             ))}
+            <li className="mt-8 lg:mt-0">
+              <a
+                href="javascript:void(0)"
+                className="py-3 px-4 text-center text-white bg-[#818cf8] hover:bg-indigo-700 rounded-md shadow block lg:inline"
+              >
+                Detect CyberBullying
+              </a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -56,10 +58,7 @@ function Hero() {
           </div>
         </div>
         <div className="flex-1 text-center mt-7 lg:mt-0 lg:ml-3">
-          <img
-            src={Cover}
-            className="w-full mx-auto sm:w-10/12  lg:w-full"
-          />
+          <img src={Cover} className="w-full mx-auto sm:w-10/12  lg:w-full" />
         </div>
       </section>
     </div>
