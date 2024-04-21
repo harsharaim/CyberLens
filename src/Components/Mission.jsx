@@ -1,6 +1,7 @@
 function Mission() {
   return (
     <section
+    id="mission"
       className="py-28"
       style={{
         background:
