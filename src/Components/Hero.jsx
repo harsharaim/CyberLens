@@ -1,5 +1,5 @@
 import Logo from "../assets/logo.png";
-import Cover from "../assets/cover.png"
+import Cover from "../assets/cover.png";
 function Hero() {
   const navigation = [
     { title: "Mission", path: "#mission" },
@@ -10,7 +10,7 @@ function Hero() {
   return (
     <div className="bg-gray-900 md:h-[100vh]">
       <header>
-        <nav className=" pt-5 px-0 mx-auto max-w-screen-xl md:px-8 flex justify-between gap-28 ">
+        <nav className=" pt-5 px-0 mx-auto max-w-screen-xl md:px-8 flex justify-between gap-20 ">
           <a href="#">
             <img src={Logo} width={100} height={50} alt="Float UI logo" />
           </a>
