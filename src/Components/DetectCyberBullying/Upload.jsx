@@ -26,7 +26,7 @@ function Upload() {
   };
 
   // Function to simulate video upload and update progress
-  const simulateUpload = (file) => {
+  const simulateUpload = () => {
     // Reset progress
     setUploadProgress(0);
     // Simulate upload progress with intervals
@@ -43,13 +43,13 @@ function Upload() {
     }, 500);
   };
 
-  // Handle video upload reset
-  const handleResetUpload = () => {
-    setVideoFile(null);
-    setVideoURL(null);
-    setUploadProgress(0);
-    setUploadCompleted(false);
-  };
+  // // Handle video upload reset
+  // const handleResetUpload = () => {
+  //   setVideoFile(null);
+  //   setVideoURL(null);
+  //   setUploadProgress(0);
+  //   setUploadCompleted(false);
+  // };
 
   return (
     <section className="min-h-screen  p-6">
