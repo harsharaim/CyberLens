@@ -3,16 +3,16 @@ import Cover from "../assets/cover.png"
 function Hero() {
   // Replace javascript:void(0) path with your path
   const navigation = [
-    { title: "Home", path: "javascript:void(0)" },
-    { title: "Process", path: "javascript:void(0)" },
-    { title: "Team", path: "javascript:void(0)" },
+    { title: "Home", path: "#" },
+    { title: "Process", path: "#process" },
+    { title: "Team", path: "#team" },
   ];
 
   return (
     <div className="bg-gray-900 md:h-[100vh]">
       <header>
-        <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
-          <a href="javascript:void(0)">
+        <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6 ">
+          <a href="#">
             <img src={Logo} width={100} height={50} alt="Float UI logo" />
           </a>
           <ul className="py-4 flex-1 items-center flex space-x-3 sm:space-x-6 sm:justify-end">
