@@ -45,7 +45,7 @@ function Team() {
           </p>
         </div>
         <div className="mt-12">
-          <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+          <ul className="grid gap-8 grid-cols-2 md:grid-cols-4">
             {team.map((item, idx) => (
               <li key={idx}>
                 <div className="w-full h-60 sm:h-52 md:h-80">

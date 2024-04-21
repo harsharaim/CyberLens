@@ -9,10 +9,10 @@ function Mission() {
     >
       <div className="max-w-screen-xl mx-auto px-4 md:text-center md:px-8">
        
-          <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+          <p className="text-gray-800 text-3xl font-semibold sm:text-4xl pb-5">
             Our Mission
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-600 ">
             At CyberLens, our mission is to create a safer digital space by
             leveraging cutting-edge technology to detect and combat
             cyberbullying. We are dedicated to fostering empathy, promoting

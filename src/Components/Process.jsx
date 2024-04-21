@@ -20,7 +20,7 @@ function Process() {
         "In this phase, we harness the power of state-of-the-art Natural Language Processing (NLP) technology, employing the BERT model to scrutinize the textual content extracted from the video. With BERT's advanced understanding of context and semantics, we meticulously assess the text for any subtle nuances or linguistic patterns indicative of cyberbullying behavior, ensuring a thorough",
       link: "",
       css: "lg:flex-row-reverse",
-      bg: "bg-[rgb(245,246,247)]",
+      bg: "bg-purple-50",
     },
     {
       img: Img3,
@@ -38,7 +38,7 @@ function Process() {
         "In this pivotal stage, we synergize the insights gleaned from both text and image analyses to derive a holistic assessment of the video’s content. By harmonizing the findings obtained through BERT’s textual analysis and ResNet 50’s visual scrutiny, we achieve a comprehensive understanding of the video’s narrative. This collaborative approach enables us to confidently ascertain the presence or absence of cyberbullying, empowering us to take decisive action as needed.",
       link: "",
       css: "lg:flex-row-reverse",
-      bg: "bg-[rgb(245,246,247)]",
+      bg: "bg-purple-50",
     },
   ];
   return (
@@ -47,7 +47,7 @@ function Process() {
         <section key={index} className={`py-14 ${item.bg}`}>
           <div className="max-w-screen-xl mx-auto md:px-8">
             <div className={`items-center gap-x-12 sm:px-4 md:px-0 lg:flex ${item.css}`}>
-              <div className="flex-1 sm:hidden lg:block">
+              <div className="flex-1 sm:hidden lg:block px-4">
                 <img
                   src={item.img}
                   className="md:max-w-lg sm:rounded-lg"
@@ -63,19 +63,8 @@ function Process() {
                   href="javascript:void(0)"
                   className="inline-flex gap-x-1 items-center text-indigo-600 hover:text-indigo-500 duration-150 font-medium"
                 >
-                  Learn more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  Learn more -&gt;
+                 
                 </a>
               </div>
             </div>
