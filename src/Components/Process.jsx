@@ -29,7 +29,7 @@ function Process() {
         "Here, we employ cutting-edge image processing techniques utilizing D-Hash and ResNet 50 models to scrutinize the visual content extracted from the video. Through D-Hash, we meticulously sift through the image data to eliminate redundant visuals, streamlining the analysis process. Meanwhile, ResNet 50 aids in detecting potential instances of cyberbullying within the remaining images, ensuring comprehensive coverage of the video's visual components.",
       link: "",
       css: "",
-      bg: "",
+      bg: "bg-white",
     },
     {
       img: Img4,

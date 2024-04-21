@@ -1,15 +1,15 @@
 function Mission() {
   return (
-    <section
-    id="mission"
-      className="py-28"
-      style={{
-        background:
-          "linear-gradient(152.92deg, rgb(245, 246, 247) 4.54%, rgba(232, 121, 249, 0.17) 34.2%, rgb(245, 246, 247) 77.55%)",
-      }}
-    >
-      <div className="max-w-screen-xl mx-auto px-4 md:text-center md:px-8">
-       
+    <div className="bg-white">
+      <section
+        id="mission"
+        className="py-28"
+        style={{
+          background:
+            "linear-gradient(152.92deg, rgb(245, 246, 247) 4.54%, rgba(232, 121, 249, 0.17) 34.2%, rgb(245, 246, 247) 77.55%)",
+        }}
+      >
+        <div className="max-w-screen-xl mx-auto px-4 md:text-center md:px-8">
           <p className="text-gray-800 text-3xl font-semibold sm:text-4xl pb-5">
             Our Mission
           </p>
@@ -25,9 +25,8 @@ function Mission() {
             community for all.
           </p>
         </div>
-  
-      
-    </section>
+      </section>
+    </div>
   );
 }
 

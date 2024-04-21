@@ -22,7 +22,7 @@ function Hero() {
             ))}
             <li className="hidden lg:block">
               <a
-                href="javascript:void(0)"
+                href="/upload"
                 className="py-3 px-4 text-center text-white bg-[#818cf8] hover:bg-indigo-700 rounded-md shadow block lg:inline"
               >
                 Detect CyberBullying
@@ -49,7 +49,7 @@ function Hero() {
               Get started
             </a>
             <a
-              href="javascript:void(0)"
+              href="/upload"
               className="px-7 py-3 w-full bg-gray-700 text-gray-200 text-center rounded-md block sm:w-auto"
             >
               Try it out
