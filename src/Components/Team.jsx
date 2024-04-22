@@ -7,7 +7,7 @@ function Team() {
   const team = [
     {
       avatar: Harsha,
-      name: "Harsha Kumar Rai M",
+      name: "Harsha Rai",
       title: "Team Leader",
       linkedin: "https://www.linkedin.com/in/harsha-rai-",
     },
