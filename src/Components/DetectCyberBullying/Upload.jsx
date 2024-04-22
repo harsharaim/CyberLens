@@ -66,9 +66,9 @@ function Upload() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 bg-white  rounded-xl p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl">
         {/* Left side section */}
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center px-7">
           <h3 className="text-2xl font-bold mb-4">Upload Video</h3>
           <p className="text-gray-600 mb-4">
             Your video will undergo analysis using our advanced model to detect
