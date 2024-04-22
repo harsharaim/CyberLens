@@ -68,8 +68,8 @@ function Upload() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl">
         {/* Left side section */}
-        <div className="flex flex-col items-center justify-center px-7">
-          <h3 className="text-2xl font-bold mb-4">Upload Video</h3>
+        <div className="flex flex-col items-center justify-center px-7 my-5">
+          <h3 className="text-2xl font-bold mb-3">Upload Video</h3>
           <p className="text-gray-600 mb-4">
             Your video will undergo analysis using our advanced model to detect
             any signs of cyberbullying. We prioritize your privacy and ensure
