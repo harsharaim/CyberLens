@@ -144,7 +144,7 @@ function Upload() {
         </div>
 
         {/* Right side section (Image) */}
-        <div className="flex items-center justify-center hidden md:visible">
+        <div className="flex items-center justify-center hidden lg:block">
           <img
             src={Img}
             alt="Vector graphic"
