@@ -1,6 +1,10 @@
 import Logo from "../assets/logo.png";
 import Cover from "../assets/cover.png";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useState } from "react";
+
 function Hero() {
+  const [state, setState] = useState(false);
   const navigation = [
     { title: "Mission", path: "#mission" },
     { title: "Process", path: "#process" },
@@ -17,7 +21,13 @@ function Hero() {
           <ul className="py-4 flex-1 items-center flex space-x-3 sm:space-x-6 sm:justify-end">
             {navigation.map((item, idx) => (
               <li className="text-gray-200" key={idx}>
-                <a href={item.path}>{item.title}</a>
+                <AnchorLink
+                  href={item.path}
+                  onClick={() => setState(!state)}
+                  className="block"
+                >
+                  {item.title}
+                </AnchorLink>
               </li>
             ))}
             <li className="hidden lg:block">

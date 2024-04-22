@@ -59,7 +59,7 @@ function Upload() {
         </p>
         <Link
           to="/"
-          className="bg-red-600 w-24 h-8 flex items-center justify-center rounded-full text-white hover:bg-red-700 transition duration-200"
+          className="bg-red-500 w-24 h-8 flex items-center justify-center rounded-full text-white hover:bg-red-600 transition duration-200"
         >
           <FaTimes size={16} className="mr-2" />
           Close
