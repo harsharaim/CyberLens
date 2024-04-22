@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaTimes, FaCheck, FaCloudUploadAlt, FaUpload } from "react-icons/fa"; // Import necessary icons
 import Img from "../../assets/videoUpload.jpg";
-
+import Img1 from "../../assets/videoUpload1.jpg";
 function Upload() {
   // State for managing video file, upload progress, and completion status
   const [videoFile, setVideoFile] = useState(null);
@@ -54,9 +54,9 @@ function Upload() {
   return (
     <section className="min-h-screen  p-6">
       <div className="text-center mb-8 bg-gray-800 flex justify-between items-center">
-        <h2 className="text-4xl font-bold text-white flex-grow text-center">
+        <p className="text-xl md:text-4xl font-bold text-white flex-grow text-center">
           Detect Cyber Bullying
-        </h2>
+        </p>
         <Link
           to="/"
           className="bg-red-600 w-24 h-8 flex items-center justify-center rounded-full text-white hover:bg-red-700 transition duration-200"
@@ -75,7 +75,13 @@ function Upload() {
             any signs of cyberbullying. We prioritize your privacy and ensure
             that your data is handled securely and responsibly
           </p>
-
+          <div className="md:hidden flex items-center justify-center">
+            <img
+              src={Img1}
+              alt="Vector graphic"
+              className="w-fit rounded-lg object-cover pb-2"
+            />
+          </div>
           {/* Video upload box with dotted border */}
           <div className="w-full h-64 border-dashed border-2 border-gray-300 rounded-lg flex flex-col items-center justify-center mb-4">
             {videoURL ? (
@@ -138,7 +144,7 @@ function Upload() {
         </div>
 
         {/* Right side section (Image) */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center hidden md:visible">
           <img
             src={Img}
             alt="Vector graphic"
