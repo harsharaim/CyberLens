@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaTimes, FaCheck, FaCloudUploadAlt, FaUpload } from "react-icons/fa"; // Import necessary icons
+import { FaTimes, FaCheck, FaCloudUploadAlt, FaUpload } from "react-icons/fa";
 import Img from "../../assets/videoUpload.jpg";
 import Img1 from "../../assets/videoUpload1.jpg";
 function Upload() {
@@ -82,7 +82,7 @@ function Upload() {
               className="w-fit rounded-lg object-cover pb-2"
             />
           </div>
-          {/* Video upload box with dotted border */}
+
           <div className="w-full h-64 border-dashed border-2 border-gray-300 rounded-lg flex flex-col items-center justify-center mb-4">
             {videoURL ? (
               <video
@@ -134,7 +134,7 @@ function Upload() {
             </div>
           )}
 
-          {/* Done mark if upload is completed */}
+          {/* video uploaded success message */}
           {uploadCompleted && (
             <div className="mt-4 text-center flex">
               <FaCheck size={20} className="text-green-500" />
@@ -143,7 +143,7 @@ function Upload() {
           )}
         </div>
 
-        {/* Right side section (Image) */}
+        {/* Right side section */}
         <div className="flex items-center justify-center hidden lg:block">
           <img
             src={Img}

@@ -1,12 +1,9 @@
 import Logo from "../assets/logo.png";
 import { FaGithub } from "react-icons/fa6";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { useState } from "react";
 
 function Footer() {
-  const [state, setState] = useState(false);
   const footerNavs = [
-  
     {
       id: 2,
       href: "#process",
@@ -16,11 +13,6 @@ function Footer() {
       id: 3,
       href: "#team",
       name: "Team",
-    },
-    {
-      id: 4,
-      href: "/upload",
-      name: "Detect-CyberBullying",
     },
   ];
 
@@ -40,15 +32,16 @@ function Footer() {
       <ul className="items-center justify-center mt-8 space-y-5 sm:flex sm:space-x-4 sm:space-y-0">
         {footerNavs.map((item, idx) => (
           <li key={idx} className=" hover:text-gray-200">
-            <AnchorLink
-              href={item.href}
-              onClick={() => setState(!state)}
-              className="block"
-            >
+            <AnchorLink href={item.href} className="block">
               {item.name}
             </AnchorLink>
           </li>
         ))}
+        <li className=" hover:text-gray-200">
+          <a href="/upload" className="block">
+            Detect-CyberBullying
+          </a>
+        </li>
       </ul>
       <div className="mt-8 items-center justify-between sm:flex">
         <div className="mt-4 sm:mt-0">

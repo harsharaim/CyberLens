@@ -1,10 +1,8 @@
 import Logo from "../assets/logo.png";
 import Cover from "../assets/cover.png";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { useState } from "react";
 
 function Hero() {
-  const [state, setState] = useState(false);
   const navigation = [
     { title: "Mission", path: "#mission" },
     { title: "Process", path: "#process" },
@@ -21,11 +19,7 @@ function Hero() {
           <ul className="py-4 flex-1 items-center flex space-x-3 sm:space-x-6 sm:justify-end">
             {navigation.map((item, idx) => (
               <li className="text-gray-200" key={idx}>
-                <AnchorLink
-                  href={item.path}
-                  onClick={() => setState(!state)}
-                  className="block"
-                >
+                <AnchorLink href={item.path} className="block">
                   {item.title}
                 </AnchorLink>
               </li>
@@ -52,12 +46,12 @@ function Hero() {
             and join us in creating a safer digital environment for all.
           </p>
           <div className="pt-10 items-center justify-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex lg:justify-start">
-            <a
+            <AnchorLink
               href="#process"
               className="px-7 py-3 w-full bg-white text-gray-800 text-center rounded-md shadow-md block sm:w-auto"
             >
               Get started
-            </a>
+            </AnchorLink>
             <a
               href="/upload"
               className="px-7 py-3 w-full bg-gray-700 text-gray-200 text-center rounded-md block sm:w-auto"

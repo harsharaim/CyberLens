@@ -8,7 +8,7 @@ function Team() {
     {
       avatar: Harsha,
       name: "Harsha Rai",
-      title: "Team Leader",
+      title: "Team Member",
       linkedin: "https://www.linkedin.com/in/harsha-rai-",
     },
     {
@@ -61,10 +61,10 @@ function Team() {
                   </a>
                 </div>
                 <div className="mt-4">
-                  <h4 className="text-lg text-gray-700 font-semibold">
+                  <h4 className="text-lg text-gray-700 font-semibold text-center">
                     {item.name}
                   </h4>
-                  <p className="text-indigo-600">{item.title}</p>
+                  {/* <p className="text-indigo-600">{item.title}</p> */}
                 </div>
               </li>
             ))}
