@@ -11,7 +11,7 @@ function Upload() {
   const [videoURL, setVideoURL] = useState(null);
 
   // Handle video file selection and upload simulation
-  const handleVideoChange = (event) => {
+  const handleVideoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setVideoFile(file);
@@ -22,8 +22,29 @@ function Upload() {
       setUploadCompleted(false);
       // Start upload simulation
       simulateUpload(file);
+  
+      try {
+        const formData = new FormData();
+        formData.append('video', file);
+  
+        const response = await fetch('http://localhost:5002/transcribe_video', {
+          method: 'POST',
+          body: formData
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch transcription');
+        }
+  
+        const data = await response.json();
+        console.log(data); // Print the response data to the console
+        // You can now use the transcription data as needed
+      } catch (error) {
+        console.error('Error fetching transcription:', error);
+      }
     }
   };
+  
 
   // Function to simulate video upload and update progress
   const simulateUpload = () => {
@@ -66,7 +87,7 @@ function Upload() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl m-20 lg:pl-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl m-20 pl-10 m-20 lg:pl-10">
         {/* Left side section */}
         <div className="flex flex-col items-center justify-center px-7 my-5">
           <h3 className="text-2xl font-bold mb-3">Upload Video</h3>
@@ -75,11 +96,11 @@ function Upload() {
             any signs of cyberbullying. We prioritize your privacy and ensure
             that your data is handled securely and responsibly
           </p>
-          <div className="md:hidden flex items-center justify-center">
+          <div className="md:hidden flex items-center justify-center ">
             <img
               src={Img1}
               alt="Vector graphic"
-              className="w-fit rounded-lg object-cover pb-2"
+              className="w-fit object-cover pb-2 rounded-xl"
             />
           </div>
 
