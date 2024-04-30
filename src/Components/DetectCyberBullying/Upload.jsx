@@ -66,7 +66,7 @@ function Upload() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl m-20 lg:pl-10">
         {/* Left side section */}
         <div className="flex flex-col items-center justify-center px-7 my-5">
           <h3 className="text-2xl font-bold mb-3">Upload Video</h3>
