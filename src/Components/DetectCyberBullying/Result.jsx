@@ -46,7 +46,7 @@ function ResultSection({
       {
         data: [0, 50, 0, 40, 10, 0, 0], // Example values for each label
         backgroundColor: [
-          "#FF6384", // Red for "Toxic"
+                "#FF6384", // Red for "Toxic"
                 "#FF9F40", // Orange for "Severe toxic"
                 "#FFCD56", // Yellow for "Obscene"
                 "#4BC0C0", // Teal for "Threat"

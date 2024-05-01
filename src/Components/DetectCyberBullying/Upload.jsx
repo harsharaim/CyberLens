@@ -48,21 +48,30 @@ function Upload() {
         const formData = new FormData();
         formData.append("video", file);
 
-        const response = await fetch("http://localhost:5002/transcribe_video", {
+        const BertResponse = await fetch("http://localhost:5002/process_text_from_video", {
+          method: "POST",
+          body: formData,
+        });
+        const MediapipeResponse = await fetch("http://localhost:5000/process_video", {
           method: "POST",
           body: formData,
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch transcription");
+        if (!BertResponse.ok) {
+          throw new Error("Bert","Failed to fetch transcription");
+        }
+        if (!MediapipeResponse.ok) {
+          throw new Error("mediapipe","Failed to process video");
         }
 
-        const data = await response.json();
-        console.log(data);
+        const Bertdata = await BertResponse.json();
+        console.log("BertData",Bertdata);
+        const MediapipeData = await MediapipeResponse.json();
+        console.log("mediapipeData",MediapipeData);
       } catch (error) {
-        console.error("Error fetching transcription:", error);
+        console.error(error);
       }
-
+      
       setTimeout(() => {
         // Dummy prediction data
         setTextAnalysisResult("Medium level of cyberbullying content");
