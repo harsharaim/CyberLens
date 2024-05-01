@@ -25,23 +25,50 @@ function ResultSection({
   const [isProcessing, setIsProcessing] = useState(true);
 
   useEffect(() => {
-   
     const timer = setTimeout(() => {
       setIsProcessing(false);
-    }, 10000); 
+    }, 10000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Pie chart data
+  // text data
   const textData = {
-    labels: ["Cyberbullying Content", "Non-Cyberbullying Content"],
+    labels: [
+      "Toxic",
+      "Severe toxic",
+      "Obscene",
+      "Threat",
+      "Insult",
+      "Identity_hate",
+      "Non-Cyberbullying Content",
+    ],
     datasets: [
       {
-        data: [calculatePercentageText(), 100 - calculatePercentageText()],
-        backgroundColor: ["#FF6384", "#36A2EB"],
+        data: [0, 50, 0, 40, 10, 0, 0], // Example values for each label
+        backgroundColor: [
+          "#FF6384", // Red for "Toxic"
+                "#FF9F40", // Orange for "Severe toxic"
+                "#FFCD56", // Yellow for "Obscene"
+                "#4BC0C0", // Teal for "Threat"
+                "#36A2EB", // Blue for "Insult"
+                "#9966FF", // Purple for "Identity_hate"
+                "#4CAF50", // Green for "Non-Cyberbullying Content"
+        ],
       },
     ],
   };
+
+
+  // // Pie chart data
+  // const textData = {
+  //   labels: ["Cyberbullying Content", "Non-Cyberbullying Content"],
+  //   datasets: [
+  //     {
+  //       data: [calculatePercentageText(), 100 - calculatePercentageText()],
+  //       backgroundColor: ["#FF6384", "#36A2EB"],
+  //     },
+  //   ],
+  // };
 
   const visualData = {
     labels: ["Cyberbullying Behavior", "Non-Cyberbullying Behavior"],
