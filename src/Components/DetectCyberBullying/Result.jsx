@@ -18,7 +18,7 @@ function predictResultLevel(combinedPercentage) {
 function ResultSection({
   textAnalysisResult,
   visualAnalysisResult,
-  calculatePercentageText,
+  bertArrayResult,
   calculatePercentageVisual,
   calculateCombinedPercentage,
 }) {
@@ -30,33 +30,27 @@ function ResultSection({
     }, 10000);
     return () => clearTimeout(timer);
   }, []);
-
+  const numLabels = bertArrayResult.length;
+  const percentagePerLabel = 100 / numLabels;
   // text data
   const textData = {
-    labels: [
-      "Toxic",
-      "Severe toxic",
-      "Obscene",
-      "Threat",
-      "Insult",
-      "Identity_hate",
-      "Non-Cyberbullying Content",
-    ],
+    labels:bertArrayResult,
     datasets: [
       {
-        data: [0, 50, 0, 40, 10, 0, 0], // Example values for each label
+        data:Array(numLabels).fill(percentagePerLabel),
         backgroundColor: [
-                "#FF6384", // Red for "Toxic"
-                "#FF9F40", // Orange for "Severe toxic"
-                "#FFCD56", // Yellow for "Obscene"
-                "#4BC0C0", // Teal for "Threat"
-                "#36A2EB", // Blue for "Insult"
-                "#9966FF", // Purple for "Identity_hate"
-                "#4CAF50", // Green for "Non-Cyberbullying Content"
+          "#FF6384", // Red for "Toxic"
+          "#FF9F40", // Orange for "Severe toxic"
+          "#FFCD56", // Yellow for "Obscene"
+          "#4BC0C0", // Teal for "Threat"
+          "#36A2EB", // Blue for "Insult"
+          "#9966FF", // Purple for "Identity_hate"
+          "#4CAF50", // Green for "Non-Cyberbullying Content"
         ],
       },
     ],
   };
+  
 
 
   // // Pie chart data
@@ -113,7 +107,7 @@ function ResultSection({
               <div>
                 <p className="mb-2 text-lg font-semibold">Text Analysis:</p>
                 <p className="text-gray-800">
-                  {calculatePercentageText()}% cyberbullying content
+                  {bertArrayResult} cyberbullying content
                 </p>
                 <p className="text-gray-800">{textAnalysisResult}</p>
               </div>
@@ -146,7 +140,7 @@ function ResultSection({
                 </p>
                 <p className="text-gray-800">
                   Prediction:{" "}
-                  {predictResultLevel(calculateCombinedPercentage())}
+                  {predictResultLevel(calculateCombinedPercentage)}
                 </p>
               </div>
               <div className="size-48 mt-10 md:mt-0">

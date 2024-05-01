@@ -15,72 +15,228 @@ function Upload() {
   const [visualAnalysisResult, setVisualAnalysisResult] = useState("");
 
 
+  const [percentageBullying, setPercentageBullying] = useState(0);
+  const [bertResult, setBertResult] = useState([]);
+  
+
   // Function to simulate video upload and update progress
-  const simulateUpload = () => {
-    // Reset progress
-    setUploadProgress(0);
-    // Simulate upload progress with intervals
-    const interval = setInterval(() => {
-      setUploadProgress((prevProgress) => {
-        const newProgress = prevProgress + 10;
-        if (newProgress >= 100) {
-          clearInterval(interval);
-          setUploadProgress(100);
-        }
-        return newProgress;
-      });
-    }, 500);
-  };
+// Function to simulate video upload and update progress
+const simulateUpload = async (file) => {
+  // Reset progress
+  setUploadProgress(0);
+
+  // Calculate the chunk size based on the file size
+  const chunkSize = Math.ceil(file.size / 10);
+  let uploadedBytes = 0;
+
+  // Simulate upload progress with intervals
+  const interval = setInterval(() => {
+    uploadedBytes += chunkSize;
+    const newProgress = Math.min(Math.ceil((uploadedBytes / file.size) * 100), 100);
+    setUploadProgress(newProgress);
+    if (newProgress >= 100) {
+      clearInterval(interval);
+      setUploadProgress(100);
+    }
+  }, 500);
+  setUploadCompleted(true);
+};
+
 
   // Handle video file selection and upload simulation
   const handleVideoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      setVideoFile(file);
-      // Create a URL for the video file
-      const url = URL.createObjectURL(file);
-      setVideoURL(url);
-      setUploadCompleted(false);
-      setIsProcessing(true);
-      simulateUpload(file);
+        setIsProcessing(true);
+        await simulateUpload(file);
+        setVideoFile(file);
+        const url = URL.createObjectURL(file);
+        setVideoURL(url);
 
-      try {
-        const formData = new FormData();
-        formData.append("video", file);
+        let bertCompleted = false;
+        let mediapipeCompleted = false;
+        const checkProcessCompletion = () => {
+          if (bertCompleted && mediapipeCompleted) {
+              setIsProcessing(false);
+          }
+        };
+        try {
+            // Fetch data from the first server (Bert)
+            const formData = new FormData();
+            formData.append("video", file);
+            const BertResponse = await fetch("http://localhost:5002/process_text_from_video", {
+                method: "POST",
+                body: formData,
+            });
 
-        const BertResponse = await fetch("http://localhost:5002/process_text_from_video", {
-          method: "POST",
-          body: formData,
-        });
-        const MediapipeResponse = await fetch("http://localhost:5000/process_video", {
-          method: "POST",
-          body: formData,
-        });
+            if (!BertResponse.ok) {
+                throw new Error("Failed to fetch transcription from Bert server");
+            }
 
-        if (!BertResponse.ok) {
-          throw new Error("Bert","Failed to fetch transcription");
+            BertResponse.json()
+                .then((data) => {
+                    setBertResult(data.predicted_labels);
+                    console.log("Bert", data);
+                    bertCompleted = true;
+                    checkProcessCompletion();
+                })
+                .catch((error) => {
+                    console.error("Error parsing JSON:", error);
+                });
+        } catch (error) {
+            console.error("Error fetching data from Bert server:", error);
         }
-        if (!MediapipeResponse.ok) {
-          throw new Error("mediapipe","Failed to process video");
+
+        try {
+            // Fetch data from the second server (Mediapipe)
+            const formData = new FormData();
+            formData.append("video", file);
+            const MediapipeResponse = await fetch("http://localhost:5000/process_video", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!MediapipeResponse.ok) {
+                throw new Error("Failed to process video using Mediapipe");
+            }
+
+            MediapipeResponse.json()
+                .then((data) => {
+                    setPercentageBullying(data.percentage_bullying);
+                    console.log("mediapipe", data);
+                    mediapipeCompleted = true;
+                    checkProcessCompletion();
+                })
+                .catch((error) => {
+                    console.error("Error parsing JSON:", error);
+                });
+        } catch (error) {
+            console.error("Error processing video using Mediapipe:", error);
         }
 
-        const Bertdata = await BertResponse.json();
-        console.log("BertData",Bertdata);
-        const MediapipeData = await MediapipeResponse.json();
-        console.log("mediapipeData",MediapipeData);
-      } catch (error) {
-        console.error(error);
-      }
-      
-      setTimeout(() => {
-        // Dummy prediction data
+        
+
         setTextAnalysisResult("Medium level of cyberbullying content");
         setVisualAnalysisResult("Low level of cyberbullying behavior");
-        setIsProcessing(false);  // process set to false  to display result
-        setUploadCompleted(true);
-      }, 3000);
     }
-  };
+};
+
+
+  
+  
+  //process strings
+//   function processStrings(inputStrings) {
+//     // Predefined list of strings
+//     const targetStrings = [
+//         "Toxic",
+//         "Severe toxic",
+//         "Obscene",
+//         "Threat",
+//         "Insult",
+//         "Identity_hate",
+//         "Non-Cyberbullying Content"
+//     ];
+    
+//     // Calculate the length of the input array
+//     const length = inputStrings.length;
+    
+//     // Calculate the percentage
+//     const percentage = length > 0 ? 100 / length : 0;
+    
+//     // Create an array of size 7 with 0 assigned
+//     const results = Array(7).fill(0);
+    
+//     // If the input array length is zero, set non-cyberbullying to 100%
+//     if (length === 0) {
+//         results[6] = 100;  // Set 100% for "Non-Cyberbullying Content" category
+//         return results;
+//     }
+    
+//     // Check for strings in the input array and assign percentage
+//     inputStrings.forEach((string) => {
+//         // Find the index of the string in the targetStrings list
+//         const index = targetStrings.indexOf(string);
+//         if (index !== -1) {
+//             // Assign the calculated percentage to the corresponding position in the results array
+//             results[index] += percentage;
+//         }
+//     });
+    
+//     return results;
+// }
+  // Calculate the percentage of cyberbullying content for the text model
+  // function bertArrayResult() {
+  //   return processStrings(bertResult);
+
+  // }
+
+  // Calculate the percentage of cyberbullying content for the visual model
+  function calculatePercentageVisual() {
+    return percentageBullying;
+  }
+  //combined percentage
+  function calculateCombinedPercentage(bertResult, percentageBullying) {
+    // const combinedPercentage =
+    //   (calculatePercentageText() + calculatePercentageVisual()) / 2;
+    // return combinedPercentage;
+  
+    // Define weights for bert categories with high priority
+    const bertWeights = {
+      toxic: 0.5,  // Weight for "toxic"
+      severeToxic: 0.9,  // Highest weight for "severe toxic"
+      obscene: 0.5,  // Weight for "obscene"
+      threat: 0.7,  // Weight for "threat"
+      insult: 0.6,  // Weight for "insult"
+      identityHate: 0.9,  // Highest weight for "identity hate"
+    };
+  
+    // Define weights for visual categories
+    let visualWeight;
+    if (percentageBullying > 50) {
+      visualWeight = 0.6;  // Higher weight for visual if above 50% bullying detected
+    } else {
+      visualWeight = 0.3;  // Lower weight for visual if 50% or below bullying detected
+    }
+  
+    // Calculate the total score for bert data
+    let bertScore = 0;
+    let categoriesDetected = 0;
+    const bertKeys = Object.keys(bertWeights);
+    
+    for (let i = 0; i < bertResult.length; i++) {
+      if (bertResult[i]) {
+        bertScore += bertWeights[bertKeys[i]];
+        categoriesDetected++;
+      }
+    }
+  
+    // Calculate visual score based on visualPercentage and visual weight
+    const visualScore = percentageBullying / 100 * visualWeight;
+  
+    // Combine the scores with higher priority given to bertScore
+    const totalScore = bertScore + visualScore;
+  
+    // Determine the cyberbullying percentage
+    let cyberbullyingPercentage;
+    if (categoriesDetected >= 3) {
+      cyberbullyingPercentage = 100;
+    } else if (categoriesDetected >= 2) {
+      cyberbullyingPercentage = Math.max(80, totalScore * 100);
+    } else if (categoriesDetected === 1) {
+      cyberbullyingPercentage = Math.max(40, totalScore * 100);
+    } else {
+      // If no bert categories are detected, calculate percentage using total score
+      const totalWeight = Object.values(bertWeights).reduce((a, b) => a + b) + visualWeight;
+      cyberbullyingPercentage = (totalScore / totalWeight) * 100;
+    }
+  
+    // Ensure the cyberbullying percentage is within 0% to 100%
+    cyberbullyingPercentage = Math.max(0, Math.min(cyberbullyingPercentage, 100));
+  
+    return cyberbullyingPercentage;
+  }
+
+
 
   return (
     <section className="min-h-screen p-6">
@@ -193,32 +349,15 @@ function Upload() {
           isProcessing={isProcessing}
           textAnalysisResult={textAnalysisResult}
           visualAnalysisResult={visualAnalysisResult}
-          calculatePercentageText={calculatePercentageText}
+          bertArrayResult={bertResult}
           calculatePercentageVisual={calculatePercentageVisual}
-          calculateCombinedPercentage={calculateCombinedPercentage}
+          calculateCombinedPercentage={()=>calculateCombinedPercentage(bertResult,percentageBullying)}
         />
       )}
     </section>
   );
 }
 
-// Calculate the percentage of cyberbullying content for the text model
-function calculatePercentageText() {
-  const percentage = 45;
-  return percentage;
-}
 
-// Calculate the percentage of cyberbullying content for the visual model
-function calculatePercentageVisual() {
-  const percentage = 30;
-  return percentage;
-}
-
-// function to  calculate the combined result
-function calculateCombinedPercentage() {
-  const combinedPercentage =
-    (calculatePercentageText() + calculatePercentageVisual()) / 2;
-  return combinedPercentage;
-}
 
 export default Upload;
