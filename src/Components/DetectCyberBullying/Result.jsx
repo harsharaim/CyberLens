@@ -82,7 +82,7 @@ function ResultSection({
           // Result section
           <div className="flex flex-col gap-10">
             {/* Text analysis result */}
-            <div className="flex justify-between md:px-36">
+            <div className="flex flex-col md:flex-row justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Text Analysis:</p>
                 <p className="text-gray-800">
@@ -90,13 +90,13 @@ function ResultSection({
                 </p>
                 <p className="text-gray-800">{textAnalysisResult}</p>
               </div>
-              <div className="size-48">
+              <div className="size-48 mt-10 md:mt-0">
                 <Pie data={textData} />
               </div>
             </div>
 
             {/* Visual analysis result */}
-            <div className="flex justify-between md:px-36">
+            <div className="flex flex-col md:flex-row justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Visual Analysis:</p>
                 <p className="text-gray-800">
@@ -104,13 +104,13 @@ function ResultSection({
                 </p>
                 <p className="text-gray-800">{visualAnalysisResult}</p>
               </div>
-              <div className="size-48">
+              <div className="size-48 mt-10 md:mt-0">
                 <Pie data={visualData} />
               </div>
             </div>
 
             {/* Final result */}
-            <div className="flex justify-between md:px-36">
+            <div className="flex flex-col md:flex-row justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Combined Result:</p>
                 <p className="text-gray-800 mb-2">
@@ -122,7 +122,7 @@ function ResultSection({
                   {predictResultLevel(calculateCombinedPercentage())}
                 </p>
               </div>
-              <div className="size-48">
+              <div className="size-48 mt-10 md:mt-0">
                 <Pie data={finalData} />
               </div>
             </div>
