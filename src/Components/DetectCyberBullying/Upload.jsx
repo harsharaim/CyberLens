@@ -3,48 +3,17 @@ import { Link } from "react-router-dom";
 import { FaTimes, FaCheck, FaCloudUploadAlt, FaUpload } from "react-icons/fa";
 import Img from "../../assets/videoUpload.jpg";
 import Img1 from "../../assets/videoUpload1.jpg";
+import ResultSection from "./Result";
+
 function Upload() {
-  // State for managing video file, upload progress, and completion status
   const [videoFile, setVideoFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadCompleted, setUploadCompleted] = useState(false);
   const [videoURL, setVideoURL] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [textAnalysisResult, setTextAnalysisResult] = useState("");
+  const [visualAnalysisResult, setVisualAnalysisResult] = useState("");
 
-  // Handle video file selection and upload simulation
-  const handleVideoChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setVideoFile(file);
-      // Create a URL for the video file
-      const url = URL.createObjectURL(file);
-      setVideoURL(url);
-      // Reset completion status
-      setUploadCompleted(false);
-      // Start upload simulation
-      simulateUpload(file);
-  
-      try {
-        const formData = new FormData();
-        formData.append('video', file);
-  
-        const response = await fetch('http://localhost:5002/transcribe_video', {
-          method: 'POST',
-          body: formData
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to fetch transcription');
-        }
-  
-        const data = await response.json();
-        console.log(data); // Print the response data to the console
-        // You can now use the transcription data as needed
-      } catch (error) {
-        console.error('Error fetching transcription:', error);
-      }
-    }
-  };
-  
 
   // Function to simulate video upload and update progress
   const simulateUpload = () => {
@@ -57,23 +26,56 @@ function Upload() {
         if (newProgress >= 100) {
           clearInterval(interval);
           setUploadProgress(100);
-          setUploadCompleted(true);
         }
         return newProgress;
       });
     }, 500);
   };
 
-  // // Handle video upload reset
-  // const handleResetUpload = () => {
-  //   setVideoFile(null);
-  //   setVideoURL(null);
-  //   setUploadProgress(0);
-  //   setUploadCompleted(false);
-  // };
+  // Handle video file selection and upload simulation
+  const handleVideoChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setVideoFile(file);
+      // Create a URL for the video file
+      const url = URL.createObjectURL(file);
+      setVideoURL(url);
+      setUploadCompleted(false);
+      setIsProcessing(true);
+      simulateUpload(file);
+
+      try {
+        const formData = new FormData();
+        formData.append("video", file);
+
+        const response = await fetch("http://localhost:5002/transcribe_video", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch transcription");
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching transcription:", error);
+      }
+
+      setTimeout(() => {
+        // Dummy prediction data
+        setTextAnalysisResult("Medium level of cyberbullying content");
+        setVisualAnalysisResult("Low level of cyberbullying behavior");
+        setIsProcessing(false);  // process set to false  to display result
+        setUploadCompleted(true);
+      }, 3000);
+    }
+  };
 
   return (
-    <section className="min-h-screen  p-6">
+    <section className="min-h-screen p-6">
+      {/* Header with close button */}
       <div className="text-center mb-8 bg-gray-800 flex justify-between items-center">
         <p className="text-xl md:text-4xl font-bold text-white flex-grow text-center">
           Detect Cyber Bullying
@@ -87,16 +89,18 @@ function Upload() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2  bg-white  rounded-xl m-20 lg:pl-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl m-20 lg:pl-10">
         {/* Left side section */}
         <div className="flex flex-col items-center justify-center px-7 my-5">
           <h3 className="text-2xl font-bold mb-3">Upload Video</h3>
           <p className="text-gray-600 mb-4">
             Your video will undergo analysis using our advanced model to detect
             any signs of cyberbullying. We prioritize your privacy and ensure
-            that your data is handled securely and responsibly
+            that your data is handled securely and responsibly.
           </p>
-          <div className="md:hidden flex items-center justify-center ">
+
+          {/*  image for mobile view */}
+          <div className="md:hidden flex items-center justify-center">
             <img
               src={Img1}
               alt="Vector graphic"
@@ -104,6 +108,7 @@ function Upload() {
             />
           </div>
 
+          {/* Video upload box */}
           <div className="w-full h-64 border-dashed border-2 border-gray-300 rounded-lg flex flex-col items-center justify-center mb-4">
             {videoURL ? (
               <video
@@ -119,6 +124,13 @@ function Upload() {
                 <FaCloudUploadAlt size={40} className="text-gray-600" />
               </label>
             )}
+            <input
+              type="file"
+              accept="video/*"
+              id="video-upload"
+              onChange={handleVideoChange}
+              className="hidden"
+            />
           </div>
 
           {/* Upload button */}
@@ -133,13 +145,6 @@ function Upload() {
                 Upload Video
               </button>
             </label>
-            <input
-              type="file"
-              accept="video/*"
-              id="video-upload"
-              onChange={handleVideoChange}
-              className="hidden"
-            />
           </div>
 
           {/* Progress bar and percentage display */}
@@ -155,7 +160,6 @@ function Upload() {
             </div>
           )}
 
-          {/* video uploaded success message */}
           {uploadCompleted && (
             <div className="mt-4 text-center flex">
               <FaCheck size={20} className="text-green-500" />
@@ -173,8 +177,39 @@ function Upload() {
           />
         </div>
       </div>
+
+      {/* Analysis Results */}
+      {uploadCompleted && (
+        <ResultSection
+          isProcessing={isProcessing}
+          textAnalysisResult={textAnalysisResult}
+          visualAnalysisResult={visualAnalysisResult}
+          calculatePercentageText={calculatePercentageText}
+          calculatePercentageVisual={calculatePercentageVisual}
+          calculateCombinedPercentage={calculateCombinedPercentage}
+        />
+      )}
     </section>
   );
+}
+
+// Calculate the percentage of cyberbullying content for the text model
+function calculatePercentageText() {
+  const percentage = 45;
+  return percentage;
+}
+
+// Calculate the percentage of cyberbullying content for the visual model
+function calculatePercentageVisual() {
+  const percentage = 30;
+  return percentage;
+}
+
+// function to  calculate the combined result
+function calculateCombinedPercentage() {
+  const combinedPercentage =
+    (calculatePercentageText() + calculatePercentageVisual()) / 2;
+  return combinedPercentage;
 }
 
 export default Upload;
