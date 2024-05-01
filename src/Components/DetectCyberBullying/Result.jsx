@@ -67,7 +67,7 @@ function ResultSection({
   };
 
   return (
-    <div className="result-section p-4 bg-gray-100 rounded-lg m-20 lg:py-10">
+    <div className="result-section p-4 bg-gray-100 rounded-lg md:m-20 lg:py-10 mt-10">
       <h3 className="text-2xl font-bold mb-4 text-center">Analysis Results</h3>
       <div className="bg-white p-4 rounded-lg shadow">
         {isProcessing ? (
@@ -82,7 +82,7 @@ function ResultSection({
           // Result section
           <div className="flex flex-col gap-10">
             {/* Text analysis result */}
-            <div className="flex justify-between px-36">
+            <div className="flex justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Text Analysis:</p>
                 <p className="text-gray-800">
@@ -96,7 +96,7 @@ function ResultSection({
             </div>
 
             {/* Visual analysis result */}
-            <div className="flex justify-between px-36">
+            <div className="flex justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Visual Analysis:</p>
                 <p className="text-gray-800">
@@ -110,7 +110,7 @@ function ResultSection({
             </div>
 
             {/* Final result */}
-            <div className="flex justify-between px-36">
+            <div className="flex justify-between md:px-36">
               <div>
                 <p className="mb-2 text-lg font-semibold">Combined Result:</p>
                 <p className="text-gray-800 mb-2">
