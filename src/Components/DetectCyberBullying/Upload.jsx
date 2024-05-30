@@ -39,6 +39,7 @@ const simulateUpload = async (file) => {
       setUploadProgress(100);
     }
   }, 500);
+  setUploadCompleted(true);
 };
 
 
@@ -57,7 +58,7 @@ const simulateUpload = async (file) => {
         const checkProcessCompletion = () => {
           if (bertCompleted && mediapipeCompleted) {
               setIsProcessing(false);
-            setUploadCompleted(true);
+            
           }
         };
         try {

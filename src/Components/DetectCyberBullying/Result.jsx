@@ -30,14 +30,16 @@ function ResultSection({
     }, 10000);
     return () => clearTimeout(timer);
   }, []);
+
   const numLabels = bertArrayResult.length;
   const percentagePerLabel = 100 / numLabels;
   // text data
+  
   const textData = {
-    labels:bertArrayResult,
+    labels:numLabels>0?bertArrayResult:['non-bullying'],
     datasets: [
       {
-        data:Array(numLabels).fill(percentagePerLabel),
+        data:numLabels>0?Array(numLabels).fill(percentagePerLabel):[100],
         backgroundColor: [
           "#FF6384", // Red for "Toxic"
           "#FF9F40", // Orange for "Severe toxic"
@@ -107,7 +109,7 @@ function ResultSection({
               <div>
                 <p className="mb-2 text-lg font-semibold">Text Analysis:</p>
                 <p className="text-gray-800">
-                  {bertArrayResult} cyberbullying content
+                  {bertArrayResult}
                 </p>
                 <p className="text-gray-800">{textAnalysisResult}</p>
               </div>
